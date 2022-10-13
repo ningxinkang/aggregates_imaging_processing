@@ -5,6 +5,7 @@ library(patchwork)
 library(rlang)
 source("script/summarySE.R")
 
+
 is_outlier <- function(x) {
   #print(x)
   return(x < quantile(x, 0.25) - 1.5 * IQR(x) | x > quantile(x, 0.75) + 1.5 * IQR(x))
@@ -37,7 +38,7 @@ plot_data <-
     # Draw number of aggregates per picture
     num_agg_1 <- 
       # select outliers
-      per_pic %>%
+      per_pic %>% 
       mutate(outlier = ifelse(is_outlier(feature), picture_id, as.numeric(NA))) %>%
       # Add error bars and mean value to the graph
       ggplot(aes(x=mouse_id, y=feature, color = category)) +
@@ -124,96 +125,130 @@ plot_data <-
     num_agg_1 + num_agg_2 + num_agg_3
     ggsave(path = path_output, filename = name_output,width = 13, height = 8, device='png', dpi=700)
   }
-###1######################################
-## 1. Average area of single aggregates##
-###1######################################
-dir_per_pic = "input/avg_agg_per_pic.csv"
-dir_per_mouse = "input/avg_agg_per_mouse.csv"
+
+###1#######################################
+## 1. Average number of single aggregates##
+###1#######################################
+dir_per_pic = "input/v2/agg_per_pic.csv"
+dir_per_mouse = "input/v2/agg_per_mouse.csv"
 ytitle = "Number of aggregates"
 ylim = 350
 feature="num_aggregates"
-path_output = "result/v2/"
+path_output = "result/v3/"
 name_output = "avg_num_agg.png"
 
 plot_data(dir_per_pic, dir_per_mouse, ytitle, ylim, feature, path_output, name_output)
 
-###2######################################
-## 2. Average area of single aggregates##
-###2######################################
-dir_per_pic = "input/avg_area&IntDen_per_pic.csv"
-dir_per_mouse = "input/avg_area&IntDen_per_mouse.csv"
+###2#################################################
+## 2. Total number per DAPI of aggregates on plate###
+###2#################################################
+dir_per_pic = "input/v2/agg_vs_DAPI_per_pic.csv"
+dir_per_mouse = "input/v2/agg_vs_DAPI_per_mouse.csv"
+ytitle = "Total number of aggregates/DAPI"
+ylim = 0.17
+feature="num_aggregates_vs_DAPI"
+path_output = "result/v3/"
+name_output = "num_agg_per_DAPI.png"
+
+plot_data(dir_per_pic, dir_per_mouse, ytitle, ylim, feature, path_output, name_output)
+
+###3######################################
+## 3. Average area of single aggregates##
+###3######################################
+dir_per_pic = "input/v2/avg_area_per_pic.csv"
+dir_per_mouse = "input/v2/avg_area_per_mouse.csv"
 ytitle = "Area (square micrometers)"
 ylim = 55
 feature="Area"
-path_output = "result/v2/"
-name_output = "avg_single_area.png"
+path_output = "result/v3/"
+name_output = "avg_area.png"
 
 plot_data(dir_per_pic, dir_per_mouse, ytitle, ylim, feature, path_output, name_output)
 
-###3###################################################
-## 3. Average Integrated density of single aggregates##
-###3###################################################
-dir_per_pic = "input/avg_area&IntDen_per_pic.csv"
-dir_per_mouse = "input/avg_area&IntDen_per_mouse.csv"
+###4###################################################
+## 4. Average Integrated density of single aggregates##
+###4###################################################
+dir_per_pic = "input/v2/avg_IntDen_per_pic.csv"
+dir_per_mouse = "input/v2/avg_IntDen_per_mouse.csv"
 ytitle = "Integrated Density"
 ylim = 1.5e-05
 feature="IntDen"
-path_output = "result/v2/"
-name_output = "avg_single_IntDen.png"
+path_output = "result/v3/"
+name_output = "avg_IntDen.png"
 
 plot_data(dir_per_pic, dir_per_mouse, ytitle, ylim, feature, path_output, name_output)
 
-###4######################################
-## 4. Total area of aggregates one plate##
-###4######################################
-dir_per_pic = "input/total_area&IntDen_per_pic.csv"
-dir_per_mouse = "input/total_area&IntDen_per_mouse.csv"
+###5######################################
+## 5. Total area of aggregates one plate##
+###5######################################
+dir_per_pic = "input/v2/total_area_per_pic.csv"
+dir_per_mouse = "input/v2/total_area_per_mouse.csv"
 ytitle = "Area (square micrometer)"
 ylim = 7000
 feature="Area"
-path_output = "result/v2/"
+path_output = "result/v3/"
 name_output = "total_area.png"
 
 plot_data(dir_per_pic, dir_per_mouse, ytitle, ylim, feature, path_output, name_output)
 
-###5####################################################
-## 5. Total Integrated Density of aggregates one plate##
-###5####################################################
-dir_per_pic = "input/total_area&IntDen_per_pic.csv"
-dir_per_mouse = "input/total_area&IntDen_per_mouse.csv"
+###6####################################################
+## 6. Total Integrated Density of aggregates one plate##
+###6####################################################
+dir_per_pic = "input/v2/total_IntDen_per_pic.csv"
+dir_per_mouse = "input/v2/total_IntDen_per_mouse.csv"
 ytitle = "Integrated Density"
 ylim = 0.00175
 feature="IntDen"
-path_output = "result/v2/"
+path_output = "result/v3/"
 name_output = "total_IntDen.png"
 
 plot_data(dir_per_pic, dir_per_mouse, ytitle, ylim, feature, path_output, name_output)
-###6###############################################
-## 6. Total Area per DAPI of aggregates one plate##
-###6###############################################
-dir_per_pic = "input/area&IntDen_vs_DAPI_per_pic.csv"
-dir_per_mouse = "input/area&IntDen_vs_DAPI_per_mouse.csv"
+###7###############################################
+## 7. Total Area per DAPI of aggregates one plate##
+###7###############################################
+dir_per_pic = "input/v2/area_vs_DAPI_per_pic.csv"
+dir_per_mouse = "input/v2/area_vs_DAPI_per_mouse.csv"
 ytitle = "Total area of aggregates/DAPI"
-ylim = 27
-feature="area_vs_DAPI"
-path_output = "result/v2/"
+ylim = 4
+feature="Area_vs_DAPI"
+path_output = "result/v3/"
 name_output = "area_per_DAPI.png"
 
 plot_data(dir_per_pic, dir_per_mouse, ytitle, ylim, feature, path_output, name_output)
 
-###7#################################################
-## 7. Total IntDen per DAPI of aggregates one plate##
-###7#################################################
-dir_per_pic = "input/area&IntDen_vs_DAPI_per_pic.csv"
-dir_per_mouse = "input/area&IntDen_vs_DAPI_per_mouse.csv"
+###8#################################################
+## 8. Total IntDen per DAPI of aggregates one plate##
+###8#################################################
+dir_per_pic = "input/v2/IntDen_vs_DAPI_per_pic.csv"
+dir_per_mouse = "input/v2/IntDen_vs_DAPI_per_mouse.csv"
 ytitle = "Total integrated density of aggregates/DAPI"
-ylim = 7e-06
+ylim = 9e-07
 feature="IntDen_vs_DAPI"
-path_output = "result/v2/"
+path_output = "result/v3/"
 name_output = "IntDen_per_DAPI.png"
 
 plot_data(dir_per_pic, dir_per_mouse, ytitle, ylim, feature, path_output, name_output)
 
+###9#####################
+## 9. Area of aggregates#
+###9#####################
+source("script/feature_distribution.R")
+dir_input = "input/GFP.csv"
+dir_output = "result/v3"
+name_output = "area_distribution.png"
+feature = "Area"
+
+feature_distribution(feature,dir_input, dir_output, name_output)
+
+###10#####################
+## 10. IntDen of aggregates#
+###10#####################
+dir_input = "input/GFP.csv"
+dir_output = "result/v3"
+name_output = "IntDen_distribution.png"
+feature = "IntDen"
+
+feature_distribution(feature,dir_input, dir_output, name_output)
 
 
 
