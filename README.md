@@ -1,6 +1,6 @@
 # Imaging processing
 ## About
-This set of script is used to take in a set of imaging result treated after ImageJ, formating and documenting individual datasheets into a large dataset, cleaning and extracting the features we want to look at, and generating the graphs.
+This set of script is used to take in a set of imaging result treated after ImageJ, formating and documenting individual datasheets into a large dataset, cleaning and extracting the features we want to look at, comparing features between treatment groups using normal t-test and LMM (considering individual mouse variance), and generating the graphs.
 
 ## Preparing protocol
 1.	Separate the GFP result and the DAPI result into two folders.
@@ -40,4 +40,5 @@ This set of script is used to take in a set of imaging result treated after Imag
         ├── feature_plot.R                      <- function for plotting the features
         └── summarySE.R                         <- function for calculating standard error bar
 
- 
+### Author
+Ningxin Kang (nik010@ucsd.edu)
