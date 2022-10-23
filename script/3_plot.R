@@ -24,7 +24,7 @@ ytitle = "Number of aggregates"
 ylim = 350
 feature="num_aggregates"
 path_output = "result/v3/"
-name_output = "avg_num_agg.png"
+name_output = "avg_num_agg_anova.png"
 
 plot_data(dir_per_pic, dir_per_mouse, ytitle, ylim, feature, path_output, name_output)
 
@@ -46,7 +46,7 @@ plot_data(dir_per_pic, dir_per_mouse, ytitle, ylim, feature, path_output, name_o
 ###3######################################
 dir_per_pic = "input/v2/avg_area_per_pic.csv"
 dir_per_mouse = "input/v2/avg_area_per_mouse.csv"
-ytitle = "Area (square micrometers)"
+ytitle = "Area (square microns)"
 ylim = 55
 feature="Area"
 path_output = "result/v3/"
@@ -72,7 +72,7 @@ plot_data(dir_per_pic, dir_per_mouse, ytitle, ylim, feature, path_output, name_o
 ###5######################################
 dir_per_pic = "input/v2/total_area_per_pic.csv"
 dir_per_mouse = "input/v2/total_area_per_mouse.csv"
-ytitle = "Area (square micrometer)"
+ytitle = "Area (square microns)"
 ylim = 7000
 feature="Area"
 path_output = "result/v3/"
@@ -137,6 +137,10 @@ name_output = "IntDen_distribution.png"
 feature = "IntDen"
 
 feature_distribution(feature,dir_input, dir_output, name_output)
+
+
+
+
 
 
 

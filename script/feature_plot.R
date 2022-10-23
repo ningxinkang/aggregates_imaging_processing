@@ -1,6 +1,6 @@
 ##__________________________________________________________________
 ## Author: Ningxin Kang (nik010@ucsd.edu)       
-## Last update: 2022-10-13    
+## Last update: 2022-10-23    
 ## File: feature_plot.R          
 ## Functions: 
 ##  is_outlier(x)
@@ -16,6 +16,7 @@ library(patchwork)
 library(rlang)
 source("script/summarySE.R")
 
+
 is_outlier <- function(x) {
   #print(x)
   return(x < quantile(x, 0.25) - 1.5 * IQR(x) | x > quantile(x, 0.75) + 1.5 * IQR(x))
@@ -27,6 +28,9 @@ plot_data <-
     # The errorbars overlapped, so use position_dodge to move them horizontally
     pd <- position_dodge(0.1)
     
+    ######################################
+    ## dataset input and SEM calculation##
+    ######################################
     per_pic <- 
       read.csv(dir_per_pic, stringsAsFactors=FALSE)
     colnames(per_pic)[grep(feature, colnames(per_pic))] <- "feature"
@@ -44,7 +48,30 @@ plot_data <-
       summarySE(per_pic, 
                 measurevar="feature", groupvars=c("category"))
     colnames(category_summary)[grep(feature, colnames(category_summary))] <- "feature"
+    
+    ############################################################
+    ## Using LMM to estimate the effect of the diet to feature##
+    ############################################################
+    library(lmerTest)
+    library("report")
+    per_pic$category <- as.factor(per_pic$category)
+    per_pic$category <- relevel(per_pic$category, ref="CTRL")
+    #Build LMM model
+    model<-lmerTest::lmer(feature ~ 1 + category + (1|mouse_id), 
+                data = per_pic, REML =TRUE)
+    print("Result summary of LMM:")
+    print(summary(model))
+    print("Scentific intepretation of LMM result:")
+    print(report::report(model))
+    # Build nul LMM model for comparison
+    model_null<-lmerTest::lmer(feature ~ 1 + (1|mouse_id), 
+                data = per_pic, REML = TRUE)
+    print("Anova result of comparison between two models:")
+    print(anova(model,model_null))
 
+    #############
+    ## Plotting##
+    #############
     # Draw number of aggregates per picture
     num_agg_1 <- 
       # select outliers

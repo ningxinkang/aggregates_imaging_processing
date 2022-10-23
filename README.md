@@ -10,41 +10,22 @@ This set of script is used to take in a set of imaging result treated after Imag
 5.	Type `ls -d $PWD/*` to let the system print out the absolute path of files in the directory.
 6.	Copy the absolute paths of the files into the filepath.xls we just created and save it.
 
+## Steps
+1.  To clone this repository for your own aggregate analysis, you want to use the code `git clone https://github.com/ningxinkang/aggregates_imaging_processing.git` or click `Code -> Download Zip` to the local directory you want.
+2.  After downloading, you will see a file directory with components listed below in **Directory Strcuture**. The coding scripts are in `script/`, while the sample output are in the `result/`, feel free to delete them.
+3.  Parallel with `script/` and `result/`, you also want to create a directory called `input/`, in which you put the GFP result and DAPI result you handled from the previous section.
+4.  You want to run the code one by one, following the number in the file name. After openning each file, make sure you change the corresponding variable based on my comment, so that you are making sure your input feature and directory, as well as output directory is right.
+
 ## Directory Structure
 
     ./
     ├── README.md
-    ├── input
-    │   ├── DAPI                                <- original filepath of DAPI
-    │   │   └── filepath.xls
-    │   ├── DAPI.csv                            <- formatted DAPI dataframe
-    │   ├── GFP                                 <- original filepath of GFP
-    │   │   └──filepath.xls
-    │   ├── GFP.csv                             <- formatted GFP dataframe
-    │   ├── IntDen_vs_DAPI_per_mouse.csv        <- Features extracted
-    │   ├── IntDen_vs_DAPI_per_pic.csv
-    │   ├── agg_per_mouse.csv
-    │   ├── agg_per_pic.csv
-    │   ├── agg_vs_DAPI_per_mouse.csv
-    │   ├── agg_vs_DAPI_per_pic.csv
-    │   ├── area_vs_DAPI_per_mouse.csv
-    │   ├── area_vs_DAPI_per_pic.csv
-    │   ├── avg_IntDen_per_mouse.csv
-    │   ├── avg_IntDen_per_pic.csv
-    │   ├── avg_area_per_mouse.csv
-    │   ├── avg_area_per_pic.csv
-    │   ├── total_IntDen_per_mouse.csv
-    │   ├── total_IntDen_per_pic.csv
-    │   ├── total_area_per_mouse.csv
-    │   └── total_area_per_pic.csv
-    ├── report.pptx
     ├── result                                  <- the plots generated with diff features
     │   ├── IntDen_distribution.png
     │   ├── IntDen_per_DAPI.png
-    │   ├── IntDen_per_aggregate.png
     │   ├── area_distribution.png
+    │   ├── area_distribution_nofilter.png
     │   ├── area_per_DAPI.png
-    │   ├── area_per_aggregate.png
     │   ├── avg_IntDen.png
     │   ├── avg_area.png
     │   ├── num_agg.png
@@ -52,9 +33,11 @@ This set of script is used to take in a set of imaging result treated after Imag
     │   ├── total_IntDen.png
     │   └── total_area.png
     └── script                                  <- dir for scripts
-        ├── 1_data_cleaning.ipynb               <- Script that merge and clean the inidvidual data
-        ├── 2_info_extraction.ipynb             <- Script that extract features
-        ├── 3_plot.R                            <- Script for plotting features usng the functions below
+        ├── 1_data_cleaning.ipynb               <- Step1, Script that merge and clean the inidvidual data
+        ├── 2_info_extraction.ipynb             <- Step2, Script that extract features
+        ├── 3_plot.R                            <- Step3, Script for plotting features usng the functions below
         ├── feature_distribution.R              <- function for plotting the distribution
         ├── feature_plot.R                      <- function for plotting the features
         └── summarySE.R                         <- function for calculating standard error bar
+
+ 
