@@ -124,6 +124,7 @@ plot_data(dir_per_pic, dir_per_mouse, ytitle, ylim, feature, path_output, name_o
 dir_input = "input/GFP.csv"
 dir_output = "result/v3"
 name_output = "area_distribution.png"
+ytitle = "Area of single aggregates (square microns)"
 feature = "Area"
 
 feature_distribution(feature,dir_input, dir_output, name_output)
@@ -134,6 +135,7 @@ feature_distribution(feature,dir_input, dir_output, name_output)
 dir_input = "input/GFP.csv"
 dir_output = "result/v3"
 name_output = "IntDen_distribution.png"
+ytitle = "IntDen"
 feature = "IntDen"
 
 feature_distribution(feature,dir_input, dir_output, name_output)
